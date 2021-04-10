@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Todo.css';
 
 function Task({ task, index, completeTask, removeTask }) {
@@ -40,6 +40,7 @@ function CreateTask({ addTask }) {
 
 
 function Todo() {
+        const [tasksRemaining, setTasksRemaining] = useState(0);
         const [tasks, setTasks] = useState([
             {
                 title: "Grab some Pizza",
@@ -54,6 +55,9 @@ function Todo() {
                 completed: false
             }
         ]);
+        useEffect(() => {
+          setTasksRemaining(tasks.filter(task => !task.completed).length)
+        });
 
         const addTask = title => {
             const newTasks = [...tasks, { title, completed: false }];
@@ -74,7 +78,7 @@ function Todo() {
 
         return (
             <div className="todo-container">
-                <div className="header">TODO - ITEMS</div>
+                <div className="header">Pending tasks ({tasksRemaining})</div>
                 <div className="tasks">
                     {tasks.map((task, index) => (
                         <Task
@@ -90,7 +94,6 @@ function Todo() {
                     <CreateTask addTask={addTask} />
                 </div>
             </div>
-        );
-    }
+        );    }
 
 export default Todo;
