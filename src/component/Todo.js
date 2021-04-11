@@ -74,8 +74,7 @@ function Todo() {
         //         completed: false
         //     }
         // ]);
-        
-          const [tasks, putItems, clearItems] = useStorage();
+        const [tasks, setTasks, removeTasks] = useStorage();
         useEffect(() => {
           setTasksRemaining(tasks.filter(task => !task.completed).length)
         }, [tasks]);
@@ -83,19 +82,19 @@ function Todo() {
         const addTask = (title, description, dateTime) => {
             var id = getId();
             const newTasks = [...tasks, {id, title, description, dateTime, completed: false }];
-            putItems(newTasks);
+            setTasks(newTasks);
         };
 
         const completeTask = (index) => {
             const newTasks = [...tasks];
             newTasks[index].completed = true;
-            putItems(newTasks);
+            setTasks(newTasks);
         };
 
         const removeTask = (index) => {
             const newTasks = [...tasks];
             newTasks.splice(index, 1);
-            putItems(newTasks);
+            setTasks(newTasks);
         };
 
         return (
@@ -115,11 +114,7 @@ function Todo() {
                 <div className="create-task" >
                     <CreateTask addTask={addTask} />
                 </div>
-                <div className="panel-block">
-                    <button className="button is-light is-fullwidth" onClick={clearItems}>
-                        Remove all Tasks
-                    </button>
-                </div>
+                <input className="remove-tasks" type="submit" onClick={removeTasks} value="Remove all Tasks" />
             </div>
         );    }
 
