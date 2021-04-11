@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Todo.css';
+import '../assets/css/Todo.css';
 import TodoItem from './TodoItem';
 import {getId} from '../lib/util';
 import DateTimePicker from 'react-datetime-picker';
@@ -7,15 +7,16 @@ import DateTimePicker from 'react-datetime-picker';
 function CreateTask({ addTask }) {
         const [value, setValue] = useState("");
         const [description, setDescription] = useState("");
-        const [dateTime, SetDateTime] = useState(new Date());
+        const [dateTime, SetDateTime] = useState("");
 
         const handleSubmit = e => {
             e.preventDefault();
             if (!value) return;
+
             var date = dateTime.toLocaleString();
-            
+            console.log(value, description, dateTime);
             addTask(value, description, date);
-            console.log(value, description, date);
+            
             setValue("");
             setDescription("");
             SetDateTime("");
@@ -29,6 +30,7 @@ function CreateTask({ addTask }) {
                     value={value}
                     placeholder="Add a new task"
                     onChange={e => setValue(e.target.value)}
+                    required
                 />
                 <input
                     type="text"
@@ -38,10 +40,11 @@ function CreateTask({ addTask }) {
                     onChange={e => setDescription(e.target.value)}
                 />
                 <DateTimePicker
+                    className="dateTime"
                     onChange={SetDateTime}
                     value={dateTime}
                 />
-                <input type="submit" value="Submit" />
+                <input type="submit" value="Add" />
             </form>
         );
     }
@@ -88,28 +91,27 @@ function Todo() {
             setTasks(newTasks);
         };
 
-        const removeTask = (index) => {
+        const removeTask = (idItem) => {
             const newTasks = [...tasks];
-            newTasks.splice(index, 1);
-            setTasks(newTasks);
+            setTasks(newTasks.filter(({ id }) => id !== idItem));
         };
 
         return (
             <div className="todo-container">
-                <div className="header">Pending tasks ({tasksRemaining})</div>
-                <div className="tasks">
-                    {tasks.map((task, index) => (
-                        <TodoItem
-                        task={task}
-                        index={index}
-                        completeTask={completeTask}
-                        removeTask={removeTask}
-                        key={index}
-                        />
-                    ))}
-                </div>
                 <div className="create-task" >
                     <CreateTask addTask={addTask} />
+                </div>
+                <div className="header">Pending tasks ({tasksRemaining})</div>
+                <div className="tasks">
+                    {tasks.map((task) => (
+                        <TodoItem
+                        task={task}
+                        id={task.id}
+                        completeTask={completeTask}
+                        removeTask={removeTask}
+                        key={task.id}
+                        />
+                    ))}
                 </div>
             </div>
         );    }

@@ -1,0 +1,73 @@
+body {
+      background: rgb(255, 255, 255);
+    }
+
+.todo-container {
+      background: rgb(107, 131, 131);
+      width: 40vw;
+      margin: 10em auto;
+      border-radius: 15px;
+      padding: 20px 10px;
+      color: white;
+      border: 3px solid rgb(36, 110, 194);
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+.task {
+      border: 1px solid white;
+      border-radius: 5px;
+      padding: 0.5em;
+      margin: 0.5em;
+    }
+
+.task button{
+      background: rgb(12, 124, 251);
+      border-radius: 5px;
+      margin: 0px 5px;
+      padding: 3px 5px;
+      border: none;
+      cursor: pointer;
+      color: white;
+      float: right;
+    }
+
+.header {
+      margin: 0.5em;
+      font-size: 2em;
+      text-align: center;
+    }
+
+.create-task input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: large;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.create-task input[type=submit] {
+  width: 100%;
+  background-color: #ff002b;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.dateTime{
+  background-color: #fff;
+  padding: 10px 15px;
+  margin: 0px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
