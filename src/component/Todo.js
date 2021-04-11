@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Todo.css';
 import TodoItem from './TodoItem';
+import {getId} from '../lib/util';
 
 function CreateTask({ addTask }) {
         const [value, setValue] = useState("");
@@ -31,15 +32,24 @@ function Todo() {
         const [tasksRemaining, setTasksRemaining] = useState(0);
         const [tasks, setTasks] = useState([
             {
+                id: getId(),
                 title: "Grab some Pizza",
+                description: "An com voi ma",
+                deadline: "",
                 completed: true
             },
             {
+                id: getId(),
                 title: "Do your workout",
+                description: "An com voi ma",
+                deadline: "",
                 completed: true
             },
             {
+                id: getId(),
                 title: "Hangout with friends",
+                description: "An com voi ma",
+                deadline: "",
                 completed: false
             }
         ]);
