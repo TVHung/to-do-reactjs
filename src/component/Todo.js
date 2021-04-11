@@ -4,7 +4,7 @@ import TodoItem from './TodoItem';
 import {getId} from '../lib/util';
 import DateTimePicker from 'react-datetime-picker';
 import '../assets/css/DateTimePicker.css'
-import useStorage from '../hooks/storage';
+import Filter from './Filter';
 
 function CreateTask({ addTask }) {
         const [value, setValue] = useState("");
@@ -55,34 +55,42 @@ function CreateTask({ addTask }) {
 
 function Todo() {
         const [tasksRemaining, setTasksRemaining] = useState(0);
-        // const [tasks, setTasks] = useState([
-        //     {
-        //         id: getId(),
-        //         title: "Grab some Pizza",
-        //         description: "An com voi ma",
-        //         dateTime: "11/1/11",
-        //         completed: true
-        //     },
-        //     {
-        //         id: getId(),
-        //         title: "Do your workout",
-        //         description: "An com voi ma",
-        //         dateTime: "11/1/11",
-        //         completed: true
-        //     },
-        //     {
-        //         id: getId(),
-        //         title: "Hangout with friends",
-        //         description: "An com voi ma",
-        //         dateTime: "11/1/11",
-        //         completed: false
-        //     }
-        // ]);
-        const [tasks, setTasks, removeTasks] = useStorage();
+        
+        const [tasks, setTasks] = useState([
+            {
+                id: getId(),
+                title: "Grab some Pizza",
+                description: "An com voi ma",
+                dateTime: "11/1/11",
+                completed: false
+            },
+            {
+                id: getId(),
+                title: "Do your workout",
+                description: "An com voi ma",
+                dateTime: "11/1/11",
+                completed: true
+            },
+            {
+                id: getId(),
+                title: "Hangout with friends",
+                description: "An com voi ma",
+                dateTime: "11/1/11",
+                completed: false
+            }
+        ]);
         useEffect(() => {
           setTasksRemaining(tasks.filter(task => !task.completed).length)
         }, [tasks]);
-
+        
+        const [filter, setFilter] = React.useState('ALL');
+        
+        const displayItems = tasks.filter(tasks => {
+            if (filter === 'ALL') return true;
+            if (filter === 'TODO') return !tasks.completed;
+            if (filter === 'DONE') return tasks.completed;
+        });
+        
         const addTask = useCallback((title, description, dateTime) => {
             var id = getId();
             const newTasks = [...tasks, {id, title, description, dateTime, completed: false }];
@@ -117,6 +125,8 @@ function Todo() {
             setTasks(tasksSorted);
             console.log(tasksSorted);
         }, [tasks]);
+        
+        const handleFilterChange = value => setFilter(value);
 
         return (
             <div className="todo-container">
@@ -126,8 +136,11 @@ function Todo() {
                 </div>
                 <div className="header">Pending tasks ({tasksRemaining})</div>
                 <button onClick={() => sortByTime()}>Sort</button>
-                <div className="tasks">
-                    {tasks.map((task) => (
+                <Filter
+                    onChange={handleFilterChange}
+                    value={tasks}
+                />
+                    {displayItems.map((task) => (
                         <TodoItem
                         task={task}
                         id={task.id}
@@ -136,8 +149,9 @@ function Todo() {
                         key={task.id}
                         />
                     ))}
-                </div>
             </div>
-        );    }
+        );    
+}
+
 
 export default Todo;
