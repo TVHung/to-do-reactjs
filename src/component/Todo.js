@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import './Todo.css';
 
-function Task({ task, index, completeTask }) {
+function Task({ task, index, completeTask, removeTask }) {
         return (
             <div
                 className="task"
                 style={{ textDecoration: task.completed ? "line-through" : "" }}
             >
                 {task.title}
+                <button style={{ background: "red" }} onClick={() => removeTask(index)}>x</button>
                 <button onClick={() => completeTask(index)}>Complete</button>
             </div>
         );
@@ -65,6 +66,12 @@ function Todo() {
             setTasks(newTasks);
         };
 
+        const removeTask = index => {
+            const newTasks = [...tasks];
+            newTasks.splice(index, 1);
+            setTasks(newTasks);
+        };
+
         return (
             <div className="todo-container">
                 <div className="header">TODO - ITEMS</div>
@@ -74,6 +81,7 @@ function Todo() {
                         task={task}
                         index={index}
                         completeTask={completeTask}
+                        removeTask={removeTask}
                         key={index}
                         />
                     ))}
@@ -84,6 +92,5 @@ function Todo() {
             </div>
         );
     }
-
 
 export default Todo;
