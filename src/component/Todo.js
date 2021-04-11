@@ -1,18 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Todo.css';
-
-function Task({ task, index, completeTask, removeTask }) {
-        return (
-            <div
-                className="task"
-                style={{ textDecoration: task.completed ? "line-through" : "" }}
-            >
-                {task.title}
-                <button style={{ background: "red" }} onClick={() => removeTask(index)}>x</button>
-                <button onClick={() => completeTask(index)}>Complete</button>
-            </div>
-        );
-    }
+import TodoItem from './TodoItem';
 
 function CreateTask({ addTask }) {
         const [value, setValue] = useState("");
@@ -59,18 +47,18 @@ function Todo() {
           setTasksRemaining(tasks.filter(task => !task.completed).length)
         });
 
-        const addTask = title => {
+        const addTask = (title) => {
             const newTasks = [...tasks, { title, completed: false }];
             setTasks(newTasks);
         };
 
-        const completeTask = index => {
+        const completeTask = (index) => {
             const newTasks = [...tasks];
             newTasks[index].completed = true;
             setTasks(newTasks);
         };
 
-        const removeTask = index => {
+        const removeTask = (index) => {
             const newTasks = [...tasks];
             newTasks.splice(index, 1);
             setTasks(newTasks);
@@ -81,7 +69,7 @@ function Todo() {
                 <div className="header">Pending tasks ({tasksRemaining})</div>
                 <div className="tasks">
                     {tasks.map((task, index) => (
-                        <Task
+                        <TodoItem
                         task={task}
                         index={index}
                         completeTask={completeTask}
