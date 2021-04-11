@@ -47,18 +47,18 @@ function Todo() {
           setTasksRemaining(tasks.filter(task => !task.completed).length)
         });
 
-        const addTask = title => {
+        const addTask = (title) => {
             const newTasks = [...tasks, { title, completed: false }];
             setTasks(newTasks);
         };
 
-        const completeTask = index => {
+        const completeTask = (index) => {
             const newTasks = [...tasks];
             newTasks[index].completed = true;
             setTasks(newTasks);
         };
 
-        const removeTask = index => {
+        const removeTask = (index) => {
             const newTasks = [...tasks];
             newTasks.splice(index, 1);
             setTasks(newTasks);
