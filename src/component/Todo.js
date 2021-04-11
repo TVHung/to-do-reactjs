@@ -85,10 +85,14 @@ function Todo() {
             setTasks(newTasks);
         };
 
-        const completeTask = (index) => {
-            const newTasks = [...tasks];
-            newTasks[index].completed = true;
-            setTasks(newTasks);
+        const completeTask = (idItem) => {
+            const newTask = tasks.map(task => {
+                if (task.id === idItem) {
+                    task.completed = !task.completed;
+                }
+                return task;
+              });
+              setTasks(newTask);
         };
 
         const removeTask = (idItem) => {
