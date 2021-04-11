@@ -3,6 +3,7 @@ import '../assets/css/Todo.css';
 import TodoItem from './TodoItem';
 import {getId} from '../lib/util';
 import DateTimePicker from 'react-datetime-picker';
+import '../assets/css/DateTimePicker.css'
 
 import useStorage from '../hooks/storage';
 
@@ -91,14 +92,26 @@ function Todo() {
             setTasks(newTasks);
         };
 
-        const removeTask = (index) => {
-            const newTasks = [...tasks];
-            newTasks.splice(index, 1);
-            setTasks(newTasks);
-        };
+        const sortByTime = useCallback(() => {
+            const tasksSorted = [...tasks].sort((a, b) => {
+                if(a.dateTime === ""){
+                    return 1;
+                }else if(b.dateTime === ""){
+                    return -1;
+                }else{
+                    return a.dateTime < b.dateTime ? -1 : 1
+                }
+            });
+            setTasks(tasksSorted);
+            console.log(tasksSorted);
+        }, [tasks]);
 
         return (
             <div className="todo-container">
+                <h3 className="nameApp">To Do application</h3>
+                <div className="create-task" >
+                    <CreateTask addTask={addTask} />
+                </div>
                 <div className="header">Pending tasks ({tasksRemaining})</div>
                 <div className="tasks">
                     {tasks.map((task, index) => (
