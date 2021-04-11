@@ -4,6 +4,7 @@ import TodoItem from './TodoItem';
 import {getId} from '../lib/util';
 import DateTimePicker from 'react-datetime-picker';
 import '../assets/css/DateTimePicker.css'
+import useStorage from '../hooks/storage';
 
 function CreateTask({ addTask }) {
         const [value, setValue] = useState("");
@@ -54,29 +55,30 @@ function CreateTask({ addTask }) {
 
 function Todo() {
         const [tasksRemaining, setTasksRemaining] = useState(0);
-        const [tasks, setTasks] = useState([
-            {
-                id: getId(),
-                title: "Grab some Pizza",
-                description: "An com voi ma",
-                dateTime: "11/1/11",
-                completed: true
-            },
-            {
-                id: getId(),
-                title: "Do your workout",
-                description: "An com voi ma",
-                dateTime: "11/1/11",
-                completed: true
-            },
-            {
-                id: getId(),
-                title: "Hangout with friends",
-                description: "An com voi ma",
-                dateTime: "11/1/11",
-                completed: false
-            }
-        ]);
+        // const [tasks, setTasks] = useState([
+        //     {
+        //         id: getId(),
+        //         title: "Grab some Pizza",
+        //         description: "An com voi ma",
+        //         dateTime: "11/1/11",
+        //         completed: true
+        //     },
+        //     {
+        //         id: getId(),
+        //         title: "Do your workout",
+        //         description: "An com voi ma",
+        //         dateTime: "11/1/11",
+        //         completed: true
+        //     },
+        //     {
+        //         id: getId(),
+        //         title: "Hangout with friends",
+        //         description: "An com voi ma",
+        //         dateTime: "11/1/11",
+        //         completed: false
+        //     }
+        // ]);
+        const [tasks, setTasks, removeTasks] = useStorage();
         useEffect(() => {
           setTasksRemaining(tasks.filter(task => !task.completed).length)
         }, [tasks]);
