@@ -44,8 +44,8 @@ body {
 
 .create-task input[type=submit] {
   width: 100%;
-  background-color: #beb6b7;
-  color: white;
+  background-color: #00ffd5;
+  color: rgb(0, 0, 0);
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
@@ -94,9 +94,19 @@ a:link, a:visited {
   text-decoration: none;
   display: inline-block;
   width: 80%;
+  
 }
 
 a:hover, a:active {
   background-color: rgb(43, 88, 233);
   color: white;
+}
+
+.sort{
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 20px;
+  width: 100px;
+  float: right;
+  padding: 10px;
+  margin-bottom: 20px;
 }
