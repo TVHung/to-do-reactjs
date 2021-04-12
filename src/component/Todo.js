@@ -108,12 +108,18 @@ function Todo() {
 
         const sortByTime = useCallback(() => {
             const tasksSorted = [...tasks].sort((a, b) => {
-                if(a.dateTime === ""){
+                if(a.dateTime === "" ){
                     return 1;
                 }else if(b.dateTime === ""){
                     return -1;
                 }else{
-                    return a.dateTime < b.dateTime ? -1 : 1
+                    if(a.completed == true ){
+                        return 1;
+                    }
+                    if(b.completed == true){
+                        return -1;
+                    }
+                    return a.dateTime < b.dateTime ? -1 : 1;
                 }
             });
             setTasks(tasksSorted);
@@ -137,11 +143,13 @@ function Todo() {
                     <CreateTask addTask={addTask} />
                 </div>
                 <div className="header">Pending tasks ({tasksRemaining})</div>
-                <button onClick={() => sortByTime()}>Sort</button>
+                
                 <Filter
                     onChange={handleFilterChange}
                     value={tasks}
                 />
+                <button className="sort" onClick={() => sortByTime()}>Sort</button>
+                <div>
                     {displayItems.map((task) => (
                         <TodoItem
                         task={task}
@@ -151,6 +159,7 @@ function Todo() {
                         key={task.id}
                         />
                     ))}
+                </div>
             </div>
         );    }
 

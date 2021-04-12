@@ -100,3 +100,12 @@ a:hover, a:active {
   background-color: rgb(43, 88, 233);
   color: white;
 }
+
+.sort{
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 20px;
+  width: 100px;
+  float: right;
+  padding: 10px;
+  margin-bottom: 20px;
+}
