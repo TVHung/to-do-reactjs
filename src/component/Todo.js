@@ -149,7 +149,10 @@ function Todo() {
                     onChange={handleFilterChange}
                     value={tasks}
                 />
-                <button className="sort" onClick={() => sortByTime()}>Sort</button>
+                <div className="sort">
+                    <button className="btnSort" onClick={() => sortByTime()}>Sort</button>
+                </div>
+                
                 <div>
                     {displayItems.map((task) => (
                         <TodoItem
