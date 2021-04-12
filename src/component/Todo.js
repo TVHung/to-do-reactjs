@@ -5,6 +5,7 @@ import {getId} from '../lib/util';
 import DateTimePicker from 'react-datetime-picker';
 import '../assets/css/DateTimePicker.css'
 import useStorage from '../hooks/storage';
+import Filter from './Filter';
 
 function CreateTask({ addTask }) {
         const [value, setValue] = useState("");
@@ -79,6 +80,7 @@ function Todo() {
         //     }
         // ]);
         const [tasks, setTasks, removeTasks] = useStorage();
+
         useEffect(() => {
           setTasksRemaining(tasks.filter(task => !task.completed).length)
         }, [tasks]);
@@ -89,7 +91,7 @@ function Todo() {
             setTasks(newTasks);
         }, [tasks]);
 
-        const completeTask = (idItem) => {
+        const completeTask = useCallback((idItem) => {
             const newTask = tasks.map(task => {
                 if (task.id === idItem) {
                     task.completed = !task.completed;
@@ -97,12 +99,12 @@ function Todo() {
                 return task;
               });
               setTasks(newTask);
-        };
+        }, [tasks]);
 
-        const removeTask = (idItem) => {
+        const removeTask = useCallback((idItem) => {
             const newTasks = [...tasks];
             setTasks(newTasks.filter(({ id }) => id !== idItem));
-        };
+        }, [tasks]);
 
         const sortByTime = useCallback(() => {
             const tasksSorted = [...tasks].sort((a, b) => {
@@ -118,6 +120,16 @@ function Todo() {
             console.log(tasksSorted);
         }, [tasks]);
 
+        const [filter, setFilter] = React.useState('ALL');
+
+        const displayItems = tasks.filter(tasks => {
+            if (filter === 'ALL') return true;
+            if (filter === 'TODO') return !tasks.completed;
+            if (filter === 'DONE') return tasks.completed;
+        });
+
+        const handleFilterChange = value => setFilter(value);
+
         return (
             <div className="todo-container">
                 <h3 className="nameApp">To Do application</h3>
@@ -126,8 +138,11 @@ function Todo() {
                 </div>
                 <div className="header">Pending tasks ({tasksRemaining})</div>
                 <button onClick={() => sortByTime()}>Sort</button>
-                <div className="tasks">
-                    {tasks.map((task) => (
+                <Filter
+                    onChange={handleFilterChange}
+                    value={tasks}
+                />
+                    {displayItems.map((task) => (
                         <TodoItem
                         task={task}
                         id={task.id}
@@ -136,7 +151,6 @@ function Todo() {
                         key={task.id}
                         />
                     ))}
-                </div>
             </div>
         );    }
 
