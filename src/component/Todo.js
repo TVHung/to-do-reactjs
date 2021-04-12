@@ -108,15 +108,15 @@ function Todo() {
 
         const sortByTime = useCallback(() => {
             const tasksSorted = [...tasks].sort((a, b) => {
-                if(a.dateTime === "" ){
+                if(a.completed == true){
                     return 1;
-                }else if(b.dateTime === ""){
+                }else if(b.completed == true){
                     return -1;
                 }else{
-                    if(a.completed == true ){
+                    if(a.dateTime === ""){
                         return 1;
                     }
-                    if(b.completed == true){
+                    if(b.dateTime === ""){
                         return -1;
                     }
                     return a.dateTime < b.dateTime ? -1 : 1;
@@ -138,7 +138,8 @@ function Todo() {
 
         return (
             <div className="todo-container">
-                <h3 className="nameApp">To Do application</h3>
+                <h1 className="nameApp">To Do application</h1>
+                <h1>Add new task</h1>
                 <div className="create-task" >
                     <CreateTask addTask={addTask} />
                 </div>
