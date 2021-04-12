@@ -1,3 +1,4 @@
+
 function Filter({ value, onChange }) {
 
     const handleClick = (key, e) => {
@@ -12,21 +13,21 @@ function Filter({ value, onChange }) {
           href="#"
           onClick={handleClick.bind(null, 'ALL')}
           className={value === 'ALL' ?  'is-active' : ''}
-        >全て</a>
+        >All</a>
         </div>
         <div className="somebox">
         <a
           href="#"
           onClick={handleClick.bind(null, 'TODO')}
           className={value === 'TODO' ?  'is-active' : ''}
-        >未完了</a>
+        >To Do</a>
         </div>
         <div className="somebox">
         <a
           href="#"
           onClick={handleClick.bind(null, 'DONE')}
           className={value === 'DONE' ?  'is-active' : ''}
-        >完了済み</a>
+        >Done</a>
         </div>
         <div className="clear"></div>
       </div>
