@@ -1,10 +1,10 @@
 import firebase from 'firebase';
 var firebaseConfig = {
-    apiKey: "AIzaSyAUcHf6s6oasui-X8gsaolBZNxkbFjTUKo",
-    authDomain: "fir-sample-669f4.firebaseapp.com",
-    projectId: "fir-sample-669f4",
-    storageBucket: "fir-sample-669f4.appspot.com",
-    messagingSenderId: "380097144719",
-    appId: "1:380097144719:web:a5b8f01b18f6bffb53cdfa"
+    apiKey: "AIzaSyA_GqdBlLi9KBDkhBYE_FFgEF0th9fYnmI",
+    authDomain: "fir-sample-9a920.firebaseapp.com",
+    projectId: "fir-sample-9a920",
+    storageBucket: "fir-sample-9a920.appspot.com",
+    messagingSenderId: "694614052345",
+    appId: "1:694614052345:web:5ac82a7a676b8e8a080128"
   };
-firebase.initializeApp(firebaseConfig);
+  firebase.initializeApp(firebaseConfig);
